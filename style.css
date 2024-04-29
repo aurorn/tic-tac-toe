@@ -1,0 +1,62 @@
+:root {
+    --body-bkg-dark: rgb(26, 26, 26);
+    --main-bkg-dark: rgb(63, 63, 63);
+    --nav-title-text-dark: rgb(134, 253, 150);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    background-color: var(--body-bkg-dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+header {
+    box-sizing: border-box;
+    padding: 10px;
+    
+}
+
+.navBar {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0 auto;
+    float: none;
+    max-width: 70%;
+}
+
+.navBar h1 {
+    color: var(--nav-title-text-dark);
+    font-size: 48px;
+    font-weight: 600;
+}
+
+
+main {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--main-bkg-dark);
+    
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    background-color: var(--body-bkg-dark);
+    color: var(--nav-title-text-dark)
+}
