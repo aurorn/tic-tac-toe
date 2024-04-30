@@ -10,7 +10,7 @@
 
     <link rel="stylesheet" href="./style.css">
     <script src="script.js" defer></script>
-    <title>Document</title>
+    <title>Tic-Tac-Toe</title>
 </head>
 <body>
     <header>
@@ -22,7 +22,21 @@
     </header>
 
      <main>
-        <div class="gameBox"></div>
+        <div class="gameContainer">
+            <div class="gridContainer">
+                <div class="cell" cellInput="0"></div>
+                <div class="cell" cellInput="1"></div>
+                <div class="cell" cellInput="2"></div>
+                <div class="cell" cellInput="3"></div>
+                <div class="cell" cellInput="4"></div>
+                <div class="cell" cellInput="5"></div>
+                <div class="cell" cellInput="6"></div>
+                <div class="cell" cellInput="7"></div>
+                <div class="cell" cellInput="8"></div>
+            </div>
+            <h2 class="winner"></h2>
+            <button class="restartBtn">Restart</button>
+        </div>
      </main>
 
      <footer>Project made by </footer>
