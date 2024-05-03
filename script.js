@@ -39,9 +39,10 @@ function cellClicked(){
 
 function updateCell(cell, index){
     options[index] = currentPlayer;
-    cell.textContent = currentPlayer;
-
+    const textColor = (currentPlayer === 'X') ? 'rgb(134, 253, 150)' : 'rgb(255, 255, 255)';
+    cell.innerHTML = `<span style="color: ${textColor}">${currentPlayer}</span>`;
 }
+
 
 function changePlayer(){
     currentPlayer = (currentPlayer == "X") ? "O" : "X";
@@ -89,3 +90,15 @@ function restartGame(){
     cells.forEach(cell => cell.textContent = "");
     running = true;
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    const playBtn = document.getElementById("play-btn");
+    const startScreen = document.getElementById("start-screen");
+    const gameContainer = document.getElementById("game-container");
+
+    playBtn.addEventListener("click", function() {
+        startScreen.style.display = "none";
+        gameContainer.style.display = "block";
+        intializeGame();
+    });
+});
