@@ -1,7 +1,10 @@
 :root {
     --body-bkg-dark: rgb(26, 26, 26);
     --main-bkg-dark: rgb(63, 63, 63);
+    --start-btn-dark: rgb(134, 253, 150);
     --nav-title-text-dark: rgb(134, 253, 150);
+    --O-color: rgb(255, 255, 255);
+    
 }
 
 * {
@@ -54,8 +57,30 @@ main {
     background-color: var(--main-bkg-dark);
 }
 
+#start-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+#start-screen .playBtn {
+    padding: 20px 40px;
+    font-size: 24px;
+    background-color: var(--start-btn-dark);
+    color: #000000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 .gameContainer {
     text-align: center;
+    
+}
+
+#game-container {
+    display: none;
 }
 
 .gridContainer {
