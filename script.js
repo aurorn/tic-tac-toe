@@ -14,7 +14,7 @@ const winCon = [
 ];
 
 const colors = {
-    X: 'rgb(134, 253, 150)',
+    X: 'rgb(36, 36, 36)',
     O: 'rgb(255, 255, 255)'
 };
 

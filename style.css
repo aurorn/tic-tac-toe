@@ -1,11 +1,19 @@
-:root {
+/*:root {
     --body-bkg-dark: rgb(26, 26, 26);
     --main-bkg-dark: rgb(63, 63, 63);
     --start-btn-dark: rgb(134, 253, 150);
     --nav-title-text-dark: rgb(134, 253, 150);
     --O-color: rgb(255, 255, 255);
     
-}
+}*/
+
+:root {
+    --body-bkg: rgb(233, 233, 233);
+    --main-bkg: rgb(224, 224, 224);
+    --nav-title-text: rgb(36, 36, 36);
+    --start-btn: rgb(121, 165, 131);
+    --cell-bkg: rgb(199, 199, 199);
+}   
 
 * {
     margin: 0;
@@ -15,7 +23,7 @@
 
 body {
     font-family: "Roboto", sans-serif;
-    background-color: var(--body-bkg-dark);
+    background-color: var(--body-bkg);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -41,7 +49,7 @@ header {
 }
 
 .navBar h1 {
-    color: var(--nav-title-text-dark);
+    color: var(--nav-title-text);
     font-size: 48px;
     font-weight: 600;
 }
@@ -66,11 +74,12 @@ header {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: var(--start-btn-dark);
+    background-color: var(--start-btn);
     padding: 20px;
     border-radius: 5px;
-    color: var(--body-bkg-dark);
+    color: var(--body-bkg);
     font-size: 24px;
+    cursor: pointer;
     
 }
 
@@ -82,7 +91,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--main-bkg-dark);
+    background-color: var(--main-bkg);
 }
 
 #start-screen {
@@ -95,8 +104,8 @@ main {
 #start-screen .playBtn {
     padding: 20px 40px;
     font-size: 24px;
-    background-color: var(--start-btn-dark);
-    color: #000000;
+    background-color: var(--start-btn);
+    color: var(--main-bkg);
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -114,7 +123,8 @@ main {
 .gridContainer {
     display: grid;
     grid-template-columns: repeat(3, auto);
-    margin: auto
+    margin: auto;
+    margin-bottom: 20px;
 
 }
 
@@ -126,16 +136,19 @@ main {
     line-height: 75px;
     font-size: 75px;
     cursor: pointer;
+    background-color:var(--cell-bkg) ;
+    border-radius: 1px;
 }
 
 .restartBtn {
-    background-color: var(--start-btn-dark);
+    background-color: var(--start-btn);
     padding: 15px;
     border: none;
     border-radius: 10px;
     font-size: 24px;
     cursor: pointer;
-    margin: 15px
+    margin: 15px;
+    color: var(--main-bkg)
 }
 
 
@@ -149,6 +162,6 @@ footer {
     align-items: center;
     width: 100%;
     padding: 20px;
-    background-color: var(--body-bkg-dark);
-    color: var(--nav-title-text-dark)
+    background-color: var(--body-bkg);
+    color: var(--nav-title-text-)
 }
