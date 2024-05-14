@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="./style.css">
-    <script src="script.js" defer></script>
+    <script src="script2.js" defer></script>
     <title>Tic-Tac-Toe</title>
 </head>
 <body>
@@ -20,12 +20,32 @@
             </div>
         </nav>
     </header>
-
+    
      <main>
         <div id="start-screen" class="startScreen">
             <button id="play-btn" class="playBtn">Play</button>
         </div>
+
+        <div id="choice-overlay" class="choiceOverlay">
+            <div id="choice-overlay-content" class="choiceOverlayContent">
+                <h2>Choose Opponent</h2>
+                <div id="btn-choices" class="btnChoices">
+                    <button id="ai-btn" class="optionBtn">AI</button>
+                    <button id="player-btn" class="optionBtn">Player</button>
+                </div>
+            </div>
+        </div>
+        
+
         <div id="game-container" class="gameContainer">
+            <div class="dropdown">
+                <button class="dropbtn">Difficulty</button>
+                <div class="dropdown-content">
+                    <a href="#" id="easy-btn">Easy</a>
+                    <a href="#" id="medium-btn">Medium</a>
+                    <a href="#" id="hard-btn">Hard</a>
+                </div>
+            </div>
             <div class="gridContainer">
                 <div class="cell" cellInput="0"></div>
                 <div class="cell" cellInput="1"></div>
@@ -41,9 +61,8 @@
             <button class="restartBtn">Restart</button>
         </div>
 
-        <div id="overlay-screen">
-            <div id="overlay-content">
-                
+        <div id="result-overlay" class="resultsOverlay">
+            <div id="result-overlay-content" class="resultsOverlayContent">
             </div>
         </div>
      </main>
