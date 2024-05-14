@@ -9,6 +9,10 @@ const resultsOverlayContent = document.getElementById("result-overlay-content");
 const aiBtn = document.getElementById("ai-btn");
 const playerBtn = document.getElementById("player-btn");
 const resultsOverlay = document.getElementById("result-overlay");
+const easyBtn = document.getElementById("easy-btn");
+const mediumBtn = document.getElementById("medium-btn");
+const hardBtn = document.getElementById("hard-btn");
+const currentDifficultyText = document.getElementById("current-difficulty");
 
 const winCon = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
@@ -24,26 +28,58 @@ const colors = {
 let options = ["", "", "", "", "", "", "", "", ""];
 let currentPlayer = "X";
 let running = false;
+let difficulty = "hard";
 
 playBtn.addEventListener("click", () => {
-    playBtn.classList.add("slide-up"); 
+    playBtn.classList.add("slide-up");
     setTimeout(() => {
-        startScreen.style.display = "none"; 
-        choiceOverlay.style.display = "block"; 
-    }, 300); 
+        startScreen.style.display = "none";
+        choiceOverlay.style.display = "block";
+    }, 300);
 });
 
-restartBtn.addEventListener("click", restartGame);
+restartBtn.addEventListener("click", resetToStartScreen);
 resultsOverlay.addEventListener("click", hideOverlayAndRestart);
 
-function startGame() {
-    playBtn.classList.add("slide-up"); 
-    setTimeout(() => {
-        startScreen.style.display = "none"; 
-        choiceOverlay.style.display = "block"; 
-    }, 150);
-}
+aiBtn.addEventListener("click", () => {
+    choiceOverlay.style.display = "none";
+    gameContainer.style.display = "block";
+    initializeGame();
+});
 
+playerBtn.addEventListener("click", () => {
+    choiceOverlay.style.display = "none";
+    gameContainer.style.display = "block";
+    initializeGame();
+});
+
+easyBtn.addEventListener("click", () => {
+    difficulty = "easy";
+    updateDifficultyText();
+    choiceOverlay.style.display = "none";
+    gameContainer.style.display = "block";
+    initializeGame();
+});
+
+mediumBtn.addEventListener("click", () => {
+    difficulty = "medium";
+    updateDifficultyText();
+    choiceOverlay.style.display = "none";
+    gameContainer.style.display = "block";
+    initializeGame();
+});
+
+hardBtn.addEventListener("click", () => {
+    difficulty = "hard";
+    updateDifficultyText();
+    choiceOverlay.style.display = "none";
+    gameContainer.style.display = "block";
+    initializeGame();
+});
+
+function updateDifficultyText() {
+    currentDifficultyText.textContent = `Current Difficulty: ${difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}`;
+}
 
 function initializeGame() {
     cells.forEach(cell => cell.addEventListener("click", cellClicked));
@@ -61,7 +97,7 @@ function cellClicked() {
     checkWinner();
     if (running && currentPlayer === 'O') {
         setTimeout(() => {
-            bestMove();
+            makeAIMove();
         }, 150);
     }
 }
@@ -112,6 +148,14 @@ function restartGame() {
     running = true;
 }
 
+function resetToStartScreen() {
+    startScreen.style.display = "block";
+    gameContainer.style.display = "none";
+    choiceOverlay.style.display = "none";
+    playBtn.classList.remove("slide-up");  // Reset play button animation
+    restartGame();
+}
+
 function showOverlay(message) {
     resultsOverlay.style.display = "block";
     resultsOverlayContent.textContent = message;
@@ -123,7 +167,35 @@ function hideOverlay() {
 
 function hideOverlayAndRestart() {
     hideOverlay();
-    restartGame();
+    resetToStartScreen();
+}
+
+function makeAIMove() {
+    if (difficulty === "easy") {
+        makeRandomMove();
+    } else if (difficulty === "medium") {
+        if (Math.random() > 0.5) {
+            makeRandomMove();
+        } else {
+            bestMove();
+        }
+    } else {
+        bestMove();
+    }
+}
+
+function makeRandomMove() {
+    let availableMoves = [];
+    options.forEach((option, index) => {
+        if (option === "") {
+            availableMoves.push(index);
+        }
+    });
+
+    const move = availableMoves[Math.floor(Math.random() * availableMoves.length)];
+    options[move] = 'O';
+    updateCell(cells[move], move);
+    checkWinner();
 }
 
 function bestMove() {
@@ -187,15 +259,3 @@ function checkResult(board) {
     }
     return board.includes('') ? null : 'draw';
 }
-
-aiBtn.addEventListener("click", () => {
-    choiceOverlay.style.display = "none";
-    gameContainer.style.display = "block";
-    initializeGame(); 
-});
-
-playerBtn.addEventListener("click", () => {
-    choiceOverlay.style.display = "none";
-    gameContainer.style.display = "block";
-    initializeGame(); 
-});
