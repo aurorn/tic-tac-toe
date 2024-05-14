@@ -5,10 +5,9 @@ import { updateStats } from './statistics.js';
 let options = ["", "", "", "", "", "", "", "", ""];
 let currentPlayer = "X";
 let running = false;
-let difficulty = "easy"; // Set default difficulty to easy
-let gameMode = "AI"; // Tracks whether the game is in AI mode or Player mode
-let player1Name = "Player 1"; // Default Player 1 name
-let player2Name = "Player 2"; // Default Player 2 name
+let difficulty = "easy"; 
+let player1Name = "Player 1"; 
+let player2Name = "Player 2"; 
 
 export function startGame() {
     elements.playBtn.classList.add("slide-up");
@@ -131,8 +130,8 @@ export function goBackToStartScreen() {
     elements.gameContainer.style.display = "none";
     elements.choiceOverlay.style.display = "none";
     elements.nameOverlay.style.display = "none";
-    elements.playBtn.classList.remove("slide-up");  // Reset play button animation
-    elements.playBtn.style.display = "block";  // Ensure the play button is visible
+    elements.playBtn.classList.remove("slide-up");  
+    elements.playBtn.style.display = "block";  
     restartGame();
 }
 
@@ -147,7 +146,7 @@ export function hideOverlay() {
 
 export function hideOverlayAndRestart() {
     hideOverlay();
-    restartGame(); // Only restart the game, don't go back to start screen
+    restartGame(); 
 }
 
 export function makeAIMove() {
@@ -171,7 +170,7 @@ function bestMove() {
     for (let i = 0; i < options.length; i++) {
         if (options[i] === '') {
             options[i] = 'O';
-            const score = minimax(options, 0, false);
+            const score = minimax(options, 0, false, -Infinity, Infinity);
             options[i] = '';
             if (score > bestScore) {
                 bestScore = score;
@@ -182,20 +181,41 @@ function bestMove() {
     return move;
 }
 
-function minimax(board, depth, isMaximizing) {
+function minimax(board, depth, isMaximizing, alpha, beta) {
     const result = checkResult(board);
     if (result !== null) return result === 'O' ? 1 : result === 'X' ? -1 : 0;
 
-    const scores = [];
-    for (let i = 0; i < board.length; i++) {
-        if (board[i] === '') {
-            board[i] = isMaximizing ? 'O' : 'X';
-            const score = minimax(board, depth + 1, !isMaximizing);
-            board[i] = '';
-            scores.push(score);
+    if (isMaximizing) {
+        let bestScore = -Infinity;
+        for (let i = 0; i < board.length; i++) {
+            if (board[i] === '') {
+                board[i] = 'O';
+                let score = minimax(board, depth + 1, false, alpha, beta);
+                board[i] = '';
+                bestScore = Math.max(score, bestScore);
+                alpha = Math.max(alpha, score);
+                if (beta <= alpha) {
+                    break;
+                }
+            }
         }
+        return bestScore;
+    } else {
+        let bestScore = Infinity;
+        for (let i = 0; i < board.length; i++) {
+            if (board[i] === '') {
+                board[i] = 'X';
+                let score = minimax(board, depth + 1, true, alpha, beta);
+                board[i] = '';
+                bestScore = Math.min(score, bestScore);
+                beta = Math.min(beta, score);
+                if (beta <= alpha) {
+                    break;
+                }
+            }
+        }
+        return bestScore;
     }
-    return isMaximizing ? Math.max(...scores) : Math.min(...scores);
 }
 
 function checkResult(board) {
