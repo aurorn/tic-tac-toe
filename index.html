@@ -36,16 +36,14 @@
             </div>
         </div>
         
-
         <div id="game-container" class="gameContainer">
-            <div class="dropdown">
-                <button class="dropbtn">Difficulty</button>
-                <div class="dropdown-content">
-                    <a href="#" id="easy-btn">Easy</a>
-                    <a href="#" id="medium-btn">Medium</a>
-                    <a href="#" id="hard-btn">Hard</a>
-                </div>
+            <h3>Difficulty</h3>
+            <div class="difficultyOptions">
+                <button id="easy-btn" class="difficultyBtn">Easy</button>
+                <button id="medium-btn" class="difficultyBtn">Medium</button>
+                <button id="hard-btn" class="difficultyBtn">Hard</button>
             </div>
+            <p id="current-difficulty" class="currentDifficulty">Current Difficulty: Hard</p>
             <div class="gridContainer">
                 <div class="cell" cellInput="0"></div>
                 <div class="cell" cellInput="1"></div>
@@ -58,7 +56,8 @@
                 <div class="cell" cellInput="8"></div>
             </div>
             <h2 class="winner"></h2>
-            <button class="restartBtn">Restart</button>
+            <button class="restartBtn" id="btn-style">Restart</button>
+            <button class="goBackBtn" id="btn-style">Go Back</button>
         </div>
 
         <div id="result-overlay" class="resultsOverlay">
