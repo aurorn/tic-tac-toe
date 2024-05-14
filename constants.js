@@ -8,4 +8,3 @@ export const colors = {
     X: 'rgb(36, 36, 36)',
     O: 'rgb(255, 255, 255)'
 };
-

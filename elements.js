@@ -20,5 +20,5 @@ export const elements = {
     player2NameInput: document.getElementById("player2-name-input"),
     startGameBtn: document.getElementById("start-game-btn"),
     themeSwitchBtn: document.getElementById("theme-switch"),
+    statsElement: document.getElementById("stats"),
 };
-

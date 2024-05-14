@@ -1,18 +1,3 @@
-@media (max-width: 768px) {
-    .gridContainer {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
-    }
-    .cell {
-        width: 60px;
-        height: 60px;
-        font-size: 50px;
-    }
-    .difficultyOptions, .navBar {
-        flex-direction: column;
-    }
-}
-
 :root {
     --body-bkg: rgb(233, 233, 233);
     --main-bkg: rgb(224, 224, 224);
@@ -20,8 +5,10 @@
     --start-btn: rgb(121, 165, 131);
     --start-btn-hover: rgb(103, 139, 111);
     --cell-bkg: rgb(199, 199, 199);
-    --turn-text-color: rgb(36, 36, 36);
-}   
+    --highlight-color: rgba(255, 255, 0, 0.5); 
+    --turn-text-color: rgb(36, 36, 36); 
+    --stats-text-color: rgb(36, 36, 36); 
+}
 
 .dark-theme {
     --body-bkg: rgb(26, 26, 26);
@@ -30,7 +17,9 @@
     --start-btn: rgb(134, 253, 150);
     --start-btn-hover: rgb(100, 200, 120);
     --cell-bkg: rgb(199, 199, 199);
-    --turn-text-color: rgb(134, 253, 150);
+    --highlight-color: rgba(255, 255, 0, 0.8);
+    --turn-text-color: rgb(134, 253, 150); 
+    --stats-text-color: rgb(134, 253, 150); 
 }
 
 * {
@@ -56,7 +45,7 @@ header {
     flex: 1;
     display: flex;
     flex-direction: row;
-    justify-content: space-between; 
+    justify-content: space-between;
     align-items: center;
     margin: 0 auto;
     float: none;
@@ -71,7 +60,7 @@ header {
 
 .themeSwitchBtn {
     padding: 10px 20px;
-    font-size: 14px;
+    font-size: 16px;
     background-color: var(--start-btn);
     color: var(--main-bkg);
     border: none;
@@ -146,23 +135,20 @@ header {
     flex-direction: row;
 }
 
-.choiceOverlayContent button {
-    padding: 20px 40px;
-    font-size: 16px;
+.btnChoices .btn-style {
     background-color: var(--start-btn);
-    color: var(--main-bkg);
+    padding: 15px;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
+    font-size: 24px;
     cursor: pointer;
-    margin: 20px
+    margin: 15px;
+    color: var(--main-bkg);
+    transition: background-color 0.3s ease;
 }
 
-.choiceOverlayContent button:hover {
+.btnChoices .btn-style:hover {
     background-color: var(--start-btn-hover);
-}
-
-.choiceOverlayContent .btn-style {
-    margin: 0 10px;
 }
 
 .nameOverlay {
@@ -277,16 +263,22 @@ main {
     transform: translateY(-100%); 
 }
 
+.winner, .stats {
+    color: var(--turn-text-color);
+}
+
 .gameContainer {
     text-align: center;
 }
 
-.gameContainer H3 {
+.gameContainer h3 {
     color: var(--nav-title-text);
+    margin-top: 15px;
 }
 
 #game-container {
     display: none;
+    animation: slideIn 0.3s ease-out;
 }
 
 .gridContainer {
@@ -314,18 +306,12 @@ main {
     transform: scale(1.05);
 }
 
-#btn-style {
-    background-color: var(--start-btn);
-    padding: 15px;
-    border: none;
-    border-radius: 10px;
-    font-size: 24px;
-    cursor: pointer;
-    margin: 15px;
-    color: var(--main-bkg);
+.cell span {
+    display: inline-block;
+    animation: scaleUp 0.3s ease-in-out;
 }
 
-.btn-style {
+#btn-style {
     background-color: var(--start-btn);
     padding: 15px;
     border: none;
@@ -337,12 +323,12 @@ main {
     transition: background-color 0.3s ease;
 }
 
-.btn-style:hover {
+#btn-style:hover {
     background-color: var(--start-btn-hover);
 }
 
-.winner {
-    color: var(--turn-text-color); 
+.winning-cell {
+    animation: highlight 1s ease-in-out infinite;
 }
 
 footer {
@@ -355,3 +341,60 @@ footer {
     color: var(--nav-title-text)
 }
 
+
+.stats {
+    display: none;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+/* Animations */
+@keyframes slideIn {
+    0% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes scaleUp {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes highlight {
+    0% {
+        background-color: transparent;
+    }
+    50% {
+        background-color: var(--highlight-color);
+    }
+    100% {
+        background-color: transparent;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .gridContainer {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+    .cell {
+        width: 60px;
+        height: 60px;
+        font-size: 50px;
+    }
+    .difficultyOptions, .navBar {
+        flex-direction: column;
+    }
+}

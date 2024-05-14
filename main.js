@@ -1,23 +1,26 @@
 import { elements } from './elements.js';
-import { startGame, selectGameMode, selectDifficulty, startGameWithNames, goBackToStartScreen, hideOverlayAndRestart, restartGame, updateTurnText } from './game.js';
+import { Game } from './gameFactory.js';
 import { toggleTheme } from './theme.js';
-import { displayStats, resetStats } from './statistics.js';
+import { displayStats, loadStats } from './statistics.js';
+
+const game = Game();
 
 // Event Listeners
-elements.playBtn.addEventListener("click", startGame);
-elements.restartBtn.addEventListener("click", restartGame);
-elements.resultsOverlay.addEventListener("click", hideOverlayAndRestart);
-elements.goBackBtn.addEventListener("click", goBackToStartScreen);
-elements.aiBtn.addEventListener("click", () => selectGameMode("AI"));
-elements.playerBtn.addEventListener("click", () => selectGameMode("Player"));
-elements.easyBtn.addEventListener("click", () => selectDifficulty("easy"));
-elements.mediumBtn.addEventListener("click", () => selectDifficulty("medium"));
-elements.hardBtn.addEventListener("click", () => selectDifficulty("hard"));
-elements.startGameBtn.addEventListener("click", startGameWithNames);
+elements.playBtn.addEventListener("click", game.startGame);
+elements.restartBtn.addEventListener("click", game.restartGame);
+elements.resultsOverlay.addEventListener("click", game.hideOverlayAndRestart);
+elements.goBackBtn.addEventListener("click", game.goBackToStartScreen);
+elements.aiBtn.addEventListener("click", () => game.selectGameMode("AI"));
+elements.playerBtn.addEventListener("click", () => game.selectGameMode("Player"));
+elements.easyBtn.addEventListener("click", () => game.selectDifficulty("easy"));
+elements.mediumBtn.addEventListener("click", () => game.selectDifficulty("medium"));
+elements.hardBtn.addEventListener("click", () => game.selectDifficulty("hard"));
+elements.startGameBtn.addEventListener("click", game.startGameWithNames);
 elements.themeSwitchBtn.addEventListener("click", () => {
     toggleTheme();
-    updateTurnText(); 
+    game.updateTurnText(); // Update turn text color immediately after theme switch
+    displayStats(gameMode); // Update stats text color immediately after theme switch
 });
 
-
-displayStats();
+// Initialize statistics display
+loadStats();
