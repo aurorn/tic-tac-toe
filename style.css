@@ -12,6 +12,7 @@
     --main-bkg: rgb(224, 224, 224);
     --nav-title-text: rgb(36, 36, 36);
     --start-btn: rgb(121, 165, 131);
+    --start-btn-hover: rgb(103, 139, 111);
     --cell-bkg: rgb(199, 199, 199);
 }   
 
@@ -43,6 +44,7 @@ header {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
     margin: 0 auto;
     float: none;
     max-width: 70%;
@@ -54,9 +56,60 @@ header {
     font-weight: 600;
 }
 
-                                    /* Overlay */
+                                    /* dropdown menu */
+.dropbtn {
+    background-color: var(--start-btn);
+    color: white;
+    padding: 16px;
+    font-size: 12px;
+    border: none;
+    border-radius: 5px;
+    
+    
+}
+  
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+  
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 80px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 5px;
+}
+  
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-#overlay-screen {
+.dropdown-content a:hover {
+    background-color: #ddd;
+    border-radius: 5px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: var(--start-btn-hover);
+}
+
+                                    /* Choice Overlay */
+.choiceOverlay {
     display: none;
     position: fixed;
     top: 0;
@@ -66,23 +119,72 @@ header {
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
     backdrop-filter: blur(5px);
-    
 }
 
-#overlay-content {
-    position: absolute;
+.choiceOverlayContent {
+    position: fixed;
+    justify-content: center;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.choiceOverlayContent h2 {
+    margin-bottom: 20px;
+}
+
+.btnChoices {
+    display: flex;
+    flex-direction: row;
+}
+
+.choiceOverlayContent button {
+    padding: 20px 40px;
+    font-size: 16px;
+    background-color: var(--start-btn);
+    color: var(--main-bkg);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 20px
+}
+
+.choiceOverlayContent button:hover {
+    background-color: var(--start-btn-hover);
+}
+
+                                    /* Results Overlay */
+
+.resultsOverlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    backdrop-filter: blur(5px);
+}
+
+.resultsOverlayContent {
+    position: fixed;
+    flex-direction: column;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: var(--start-btn);
     padding: 20px;
     border-radius: 5px;
-    color: var(--body-bkg);
+    text-align: center;
     font-size: 24px;
-    cursor: pointer;
-    
+    color: #fff;
 }
-
 
                                     /* Game Layout */
 
@@ -101,7 +203,7 @@ main {
     
 }
 
-#start-screen .playBtn {
+.playBtn {
     padding: 20px 40px;
     font-size: 24px;
     background-color: var(--start-btn);
@@ -109,6 +211,12 @@ main {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: all 0.5s ease; 
+}
+
+.playBtn.slide-up {
+    opacity: 0;
+    transform: translateY(-100%); 
 }
 
 .gameContainer {
@@ -124,7 +232,7 @@ main {
     display: grid;
     grid-template-columns: repeat(3, auto);
     margin: auto;
-    margin-bottom: 20px;
+    margin: 20px;
 
 }
 
