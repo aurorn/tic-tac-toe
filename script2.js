@@ -6,6 +6,7 @@ const playBtn = document.getElementById("play-btn");
 const startScreen = document.getElementById("start-screen");
 const gameContainer = document.getElementById("game-container");
 const choiceOverlay = document.getElementById("choice-overlay");
+const nameOverlay = document.getElementById("name-overlay");
 const resultsOverlayContent = document.getElementById("result-overlay-content");
 const aiBtn = document.getElementById("ai-btn");
 const playerBtn = document.getElementById("player-btn");
@@ -15,11 +16,15 @@ const mediumBtn = document.getElementById("medium-btn");
 const hardBtn = document.getElementById("hard-btn");
 const currentDifficultyText = document.getElementById("current-difficulty");
 const goBackBtn = document.querySelector(".goBackBtn");
+const player1NameInput = document.getElementById("player1-name-input");
+const player2NameInput = document.getElementById("player2-name-input");
+const startGameBtn = document.getElementById("start-game-btn");
+const themeSwitchBtn = document.getElementById("theme-switch");
 
 const winCon = [
-    [0, 1, 2], [3, 4, 5], [6, 7, 8], 
-    [0, 3, 6], [1, 4, 7], [2, 5, 8], 
-    [0, 4, 8], [2, 4, 6]             
+    [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+    [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+    [0, 4, 8], [2, 4, 6]             // Diagonals
 ];
 
 const colors = {
@@ -30,8 +35,10 @@ const colors = {
 let options = ["", "", "", "", "", "", "", "", ""];
 let currentPlayer = "X";
 let running = false;
-let difficulty = "easy"; 
-let gameMode = "AI"; e
+let difficulty = "easy"; // Set default difficulty to easy
+let gameMode = "AI"; // Tracks whether the game is in AI mode or Player mode
+let player1Name = "Player 1"; // Default Player 1 name
+let player2Name = "Player 2"; // Default Player 2 name
 
 // Event Listeners
 playBtn.addEventListener("click", startGame);
@@ -43,6 +50,11 @@ playerBtn.addEventListener("click", () => selectGameMode("Player"));
 easyBtn.addEventListener("click", () => selectDifficulty("easy"));
 mediumBtn.addEventListener("click", () => selectDifficulty("medium"));
 hardBtn.addEventListener("click", () => selectDifficulty("hard"));
+startGameBtn.addEventListener("click", startGameWithNames);
+themeSwitchBtn.addEventListener("click", () => {
+    document.body.classList.toggle("dark-theme");
+    updateTurnText(); 
+});
 
 // Initialize the default difficulty text
 updateDifficultyText();
@@ -59,14 +71,32 @@ function startGame() {
 function selectGameMode(mode) {
     gameMode = mode;
     choiceOverlay.style.display = "none";
-    gameContainer.style.display = "block";
-    initializeGame();
+    nameOverlay.style.display = "block";
+
+    // Show Player 2 name input if game mode is Player
+    if (gameMode === "Player") {
+        document.getElementById("name-overlay-content").querySelector("h2").textContent = "Enter Player Names";
+        player2NameInput.style.display = "block";
+    } else {
+        document.getElementById("name-overlay-content").querySelector("h2").textContent = "Enter Your Name";
+        player2NameInput.style.display = "none";
+    }
 }
 
 function selectDifficulty(level) {
     difficulty = level;
     updateDifficultyText();
     choiceOverlay.style.display = "none";
+    gameContainer.style.display = "block";
+    initializeGame();
+}
+
+function startGameWithNames() {
+    player1Name = player1NameInput.value || "Player 1";
+    if (gameMode === "Player") {
+        player2Name = player2NameInput.value || "Player 2";
+    }
+    nameOverlay.style.display = "none";
     gameContainer.style.display = "block";
     initializeGame();
 }
@@ -114,7 +144,15 @@ function checkWinner() {
 }
 
 function declareWinner(winner) {
-    showOverlay(winner === "draw" ? "Draw!" : `${winner} wins!`);
+    let message;
+    if (winner === "draw") {
+        message = "Draw!";
+    } else if (winner === "X") {
+        message = `${gameMode === "AI" ? player1Name : player1Name} wins!`;
+    } else {
+        message = `${gameMode === "AI" ? "AI" : player2Name} wins!`;
+    }
+    showOverlay(message);
     running = false;
 }
 
@@ -124,7 +162,8 @@ function changePlayer() {
 }
 
 function updateTurnText() {
-    winnerText.innerHTML = `<span style="color: ${colors[currentPlayer]}">${currentPlayer}</span>'s turn`;
+    const name = currentPlayer === "X" ? player1Name : (gameMode === "AI" ? "AI" : player2Name);
+    winnerText.innerHTML = `<span style="color: var(--turn-text-color)">${name}'s turn</span>`;
 }
 
 function restartGame() {
@@ -139,8 +178,9 @@ function goBackToStartScreen() {
     startScreen.style.display = "block";
     gameContainer.style.display = "none";
     choiceOverlay.style.display = "none";
-    playBtn.classList.remove("slide-up"); 
-    playBtn.style.display = "block";  
+    nameOverlay.style.display = "none";
+    playBtn.classList.remove("slide-up");  // Reset play button animation
+    playBtn.style.display = "block";  // Ensure the play button is visible
     restartGame();
 }
 
@@ -155,7 +195,7 @@ function hideOverlay() {
 
 function hideOverlayAndRestart() {
     hideOverlay();
-    restartGame(); 
+    restartGame(); // Only restart the game, don't go back to start screen
 }
 
 function makeAIMove() {
@@ -214,4 +254,5 @@ function checkResult(board) {
     return board.includes('') ? null : 'draw';
 }
 
+// Initialize the default difficulty text
 updateDifficultyText();

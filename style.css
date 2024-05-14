@@ -1,11 +1,17 @@
-/*:root {
-    --body-bkg-dark: rgb(26, 26, 26);
-    --main-bkg-dark: rgb(63, 63, 63);
-    --start-btn-dark: rgb(134, 253, 150);
-    --nav-title-text-dark: rgb(134, 253, 150);
-    --O-color: rgb(255, 255, 255);
-    
-}*/
+@media (max-width: 768px) {
+    .gridContainer {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+    .cell {
+        width: 60px;
+        height: 60px;
+        font-size: 50px;
+    }
+    .difficultyOptions, .navBar {
+        flex-direction: column;
+    }
+}
 
 :root {
     --body-bkg: rgb(233, 233, 233);
@@ -14,7 +20,18 @@
     --start-btn: rgb(121, 165, 131);
     --start-btn-hover: rgb(103, 139, 111);
     --cell-bkg: rgb(199, 199, 199);
+    --turn-text-color: rgb(36, 36, 36);
 }   
+
+.dark-theme {
+    --body-bkg: rgb(26, 26, 26);
+    --main-bkg: rgb(63, 63, 63);
+    --nav-title-text: rgb(134, 253, 150);
+    --start-btn: rgb(134, 253, 150);
+    --start-btn-hover: rgb(100, 200, 120);
+    --cell-bkg: rgb(199, 199, 199);
+    --turn-text-color: rgb(134, 253, 150);
+}
 
 * {
     margin: 0;
@@ -28,22 +45,18 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    
 }
-
-                                    /* Nav Bar */
 
 header {
     box-sizing: border-box;
     padding: 10px;
-    
 }
 
 .navBar {
     flex: 1;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between; 
     align-items: center;
     margin: 0 auto;
     float: none;
@@ -56,59 +69,49 @@ header {
     font-weight: 600;
 }
 
-                                    /* dropdown menu */
-.dropbtn {
+.themeSwitchBtn {
+    padding: 10px 20px;
+    font-size: 14px;
     background-color: var(--start-btn);
-    color: white;
-    padding: 16px;
-    font-size: 12px;
+    color: var(--main-bkg);
     border: none;
     border-radius: 5px;
-    
-    
-}
-  
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-  
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 80px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 5px;
-}
-  
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.dropdown-content a:hover {
-    background-color: #ddd;
-    border-radius: 5px;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-.dropdown:hover .dropbtn {
+.themeSwitchBtn:hover {
     background-color: var(--start-btn-hover);
 }
 
-                                    /* Choice Overlay */
+.currentDifficulty {
+    margin-top: 10px;
+    font-size: 18px;
+    color: var(--nav-title-text);
+}
+
+.difficultyOptions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.difficultyBtn {
+    background-color: var(--start-btn);
+    color: var(--main-bkg);
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.difficultyBtn:hover {
+    background-color: var(--start-btn-hover);
+}
+
 .choiceOverlay {
     display: none;
     position: fixed;
@@ -128,7 +131,7 @@ header {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #fff;
+    background-color: var(--main-bkg);
     padding: 20px;
     border-radius: 5px;
     text-align: center;
@@ -158,7 +161,65 @@ header {
     background-color: var(--start-btn-hover);
 }
 
-                                    /* Results Overlay */
+.choiceOverlayContent .btn-style {
+    margin: 0 10px;
+}
+
+.nameOverlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    backdrop-filter: blur(5px);
+}
+
+.nameOverlayContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--main-bkg);
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.nameOverlayContent h2 {
+    margin-bottom: 20px;
+}
+
+.nameOverlayContent input {
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    width: 80%;
+    max-width: 300px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    text-align: center; 
+}
+
+.startGameBtn {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: var(--start-btn);
+    color: var(--main-bkg);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.startGameBtn:hover {
+    background-color: var(--start-btn-hover);
+}
 
 .resultsOverlay {
     display: none;
@@ -183,10 +244,8 @@ header {
     border-radius: 5px;
     text-align: center;
     font-size: 24px;
-    color: #fff;
+    color: var(--main-bkg);
 }
-
-                                    /* Game Layout */
 
 main {
     flex: 1 1 auto;
@@ -200,7 +259,6 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    
 }
 
 .playBtn {
@@ -221,7 +279,10 @@ main {
 
 .gameContainer {
     text-align: center;
-    
+}
+
+.gameContainer H3 {
+    color: var(--nav-title-text);
 }
 
 #game-container {
@@ -232,8 +293,7 @@ main {
     display: grid;
     grid-template-columns: repeat(3, auto);
     margin: auto;
-    margin: 20px;
-
+    margin: 33px;
 }
 
 .cell {
@@ -246,9 +306,15 @@ main {
     cursor: pointer;
     background-color:var(--cell-bkg) ;
     border-radius: 1px;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
-.restartBtn {
+.cell:hover {
+    background-color: var(--start-btn-hover);
+    transform: scale(1.05);
+}
+
+#btn-style {
     background-color: var(--start-btn);
     padding: 15px;
     border: none;
@@ -256,14 +322,29 @@ main {
     font-size: 24px;
     cursor: pointer;
     margin: 15px;
-    color: var(--main-bkg)
+    color: var(--main-bkg);
 }
 
+.btn-style {
+    background-color: var(--start-btn);
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    margin: 15px;
+    color: var(--main-bkg);
+    transition: background-color 0.3s ease;
+}
 
+.btn-style:hover {
+    background-color: var(--start-btn-hover);
+}
 
+.winner {
+    color: var(--turn-text-color); 
+}
 
-
-                                /* Footer Styling */
 footer {
     display: flex;
     justify-content: center;
@@ -271,5 +352,6 @@ footer {
     width: 100%;
     padding: 20px;
     background-color: var(--body-bkg);
-    color: var(--nav-title-text-)
+    color: var(--nav-title-text)
 }
+
