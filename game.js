@@ -6,6 +6,7 @@ let options = ["", "", "", "", "", "", "", "", ""];
 let currentPlayer = "X";
 let running = false;
 let difficulty = "easy"; 
+let gameMode = "AI"; 
 let player1Name = "Player 1"; 
 let player2Name = "Player 2"; 
 

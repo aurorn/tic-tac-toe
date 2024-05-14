@@ -1,5 +1,5 @@
 import { elements } from './elements.js';
-import { startGame, selectGameMode, selectDifficulty, startGameWithNames, goBackToStartScreen, hideOverlayAndRestart, restartGame } from './game.js';
+import { startGame, selectGameMode, selectDifficulty, startGameWithNames, goBackToStartScreen, hideOverlayAndRestart, restartGame, updateTurnText } from './game.js';
 import { toggleTheme } from './theme.js';
 import { displayStats, resetStats } from './statistics.js';
 
