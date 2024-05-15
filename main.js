@@ -18,9 +18,9 @@ elements.hardBtn.addEventListener("click", () => game.selectDifficulty("hard"));
 elements.startGameBtn.addEventListener("click", game.startGameWithNames);
 elements.themeSwitchBtn.addEventListener("click", () => {
     toggleTheme();
-    game.updateTurnText(); // Update turn text color immediately after theme switch
-    displayStats(gameMode); // Update stats text color immediately after theme switch
+    game.updateTurnText(); 
+    displayStats(gameMode); 
 });
 
-// Initialize statistics display
+
 loadStats();

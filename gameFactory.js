@@ -6,10 +6,10 @@ export function Game() {
     let options = ["", "", "", "", "", "", "", "", ""];
     let currentPlayer = "X";
     let running = false;
-    let difficulty = "easy"; // Set default difficulty to easy
-    let gameMode = "AI"; // Tracks whether the game is in AI mode or Player mode
-    let player1Name = "Player 1"; // Default Player 1 name
-    let player2Name = "AI"; // Default Player 2 name, changed based on game mode
+    let difficulty = "easy"; 
+    let gameMode = "AI"; 
+    let player1Name = "Player 1"; 
+    let player2Name = "AI"; 
 
     const startGame = () => {
         elements.playBtn.classList.add("slide-up");
@@ -21,7 +21,7 @@ export function Game() {
 
     const selectGameMode = (mode) => {
         gameMode = mode;
-        player2Name = gameMode === "AI" ? "AI" : "Player 2"; // Set player2Name based on game mode
+        player2Name = gameMode === "AI" ? "AI" : "Player 2"; 
         elements.choiceOverlay.style.display = "none";
         elements.nameOverlay.style.display = "block";
 
@@ -50,7 +50,7 @@ export function Game() {
         elements.nameOverlay.style.display = "none";
         elements.gameContainer.style.display = "block";
         initializeGame();
-        displayStats(gameMode); // Display stats for the selected game mode
+        displayStats(gameMode); 
     };
 
     const updateDifficultyText = () => {
@@ -109,7 +109,7 @@ export function Game() {
                 updateStats(winner === "X" ? "player1Win" : "player2Win", gameMode);
             }
 
-            // Highlight winning cells
+            
             for (let i = 0; i < winCon.length; i++) {
                 const [a, b, c] = winCon[i];
                 if (options[a] && options[a] === options[b] && options[a] === options[c]) {
@@ -121,7 +121,7 @@ export function Game() {
             }
         }
         showOverlay(message);
-        displayStats(gameMode); // Ensure stats are updated and displayed
+        displayStats(gameMode); 
         running = false;
     };
 
@@ -141,10 +141,10 @@ export function Game() {
         updateTurnText();
         elements.cells.forEach(cell => {
             cell.textContent = "";
-            cell.classList.remove('winning-cell'); // Remove highlight class
+            cell.classList.remove('winning-cell'); 
         });
         running = true;
-        displayStats(gameMode); // Ensure stats are updated and displayed after restart
+        displayStats(gameMode); 
     };
 
     const goBackToStartScreen = () => {
@@ -152,9 +152,9 @@ export function Game() {
         elements.gameContainer.style.display = "none";
         elements.choiceOverlay.style.display = "none";
         elements.nameOverlay.style.display = "none";
-        elements.playBtn.classList.remove("slide-up");  // Reset play button animation
-        elements.playBtn.style.display = "block";  // Ensure the play button is visible
-        elements.statsElement.style.display = "none";  // Hide stats when going back to start screen
+        elements.playBtn.classList.remove("slide-up");  
+        elements.playBtn.style.display = "block";  
+        elements.statsElement.style.display = "none";  
         restartGame();
     };
 
@@ -169,7 +169,7 @@ export function Game() {
 
     const hideOverlayAndRestart = () => {
         hideOverlay();
-        restartGame(); // Only restart the game, don't go back to start screen
+        restartGame(); 
     };
 
     const makeAIMove = () => {
